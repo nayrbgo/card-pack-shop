@@ -17,6 +17,7 @@ let selectedCard = 0
 let collectionSets: string[] = []
 let collectionRarities: string[] = []
 let collectionValues: number[] = []
+let collectionOpenValues: number[] = []
 
 // MARKET VALUES AS PERCENTAGES
 // 100 = 1.00x, 125 = 1.25x, 80 = 0.80x
@@ -30,9 +31,10 @@ let mhrMarket = 100
 
 scene.setBackgroundColor(9)
 
-game.splash("CARD PACK SHOP", "DRAFT 1.4")
+game.splash("CARD PACK SHOP", "DRAFT 1.5")
 
 updateSet()
+updateMarket()
 showHome()
 
 function updateSet() {
@@ -97,10 +99,17 @@ function drawHome() {
     screen.print("< > CHANGE SET", 10, 115, 1, image.font5)
 }
 
+// Every player move shakes the market before the move happens.
+function marketMove() {
+    updateMarket()
+}
+
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (busy) {
         return
     }
+
+    marketMove()
 
     if (screenMode == 0) {
         setNumber -= 1
@@ -118,6 +127,8 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         return
     }
 
+    marketMove()
+
     if (screenMode == 0) {
         setNumber += 1
 
@@ -134,6 +145,8 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         return
     }
 
+    marketMove()
+
     if (screenMode == 1 && collectionSets.length > 0) {
         selectedCard -= 1
 
@@ -148,6 +161,8 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         return
     }
 
+    marketMove()
+
     if (screenMode == 1 && collectionSets.length > 0) {
         selectedCard += 1
 
@@ -161,6 +176,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (busy) {
         return
     }
+
+    marketMove()
 
     if (screenMode == 1) {
         sellSelectedCard()
@@ -188,6 +205,8 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         return
     }
 
+    marketMove()
+
     if (screenMode == 0) {
         if (collectionSets.length > 0) {
             selectedCard = collectionSets.length - 1
@@ -206,6 +225,8 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         return
     }
 
+    marketMove()
+
     if (screenMode == 2) {
         showHome()
     } else {
@@ -213,10 +234,11 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 
-function addCardToCollection(rarity: string, value: number) {
+function addCardToCollection(rarity: string, value: number, openingValue: number) {
     collectionSets.push(setName)
     collectionRarities.push(rarity)
     collectionValues.push(value)
+    collectionOpenValues.push(openingValue)
 }
 
 function getCollectionBaseValue(): number {
@@ -343,11 +365,25 @@ function sellSelectedCard() {
     let soldRarity = collectionRarities[selectedCard]
     let saleValue = getSaleValue(selectedCard)
 
+    // Lock this quote while the player confirms.
+    busy = true
+    let confirmed = game.ask(
+        "SELL " + shortRarity(soldRarity) + "?",
+        "MARKET PRICE $" + saleValue
+    )
+    busy = false
+
+    if (!confirmed) {
+        game.splash("SALE CANCELLED", "Card kept")
+        return
+    }
+
     money += saleValue
 
     collectionSets.removeAt(selectedCard)
     collectionRarities.removeAt(selectedCard)
     collectionValues.removeAt(selectedCard)
+    collectionOpenValues.removeAt(selectedCard)
 
     if (selectedCard >= collectionSets.length) {
         selectedCard = collectionSets.length - 1
@@ -457,6 +493,11 @@ function getSaleValue(index: number): number {
     return Math.max(1, Math.idiv(baseValue * marketPercent, 100))
 }
 
+function getOpeningSaleValue(rarity: string, baseValue: number): number {
+    let marketPercent = getMarketPercent(rarity)
+    return Math.max(1, Math.idiv(baseValue * marketPercent, 100))
+}
+
 function drawMarket() {
     screen.fill(1)
 
@@ -563,8 +604,6 @@ function openPack() {
     revealCard(4)
     revealCard(5)
 
-    updateMarket()
-
     game.splash(
         "PACK COMPLETE!",
         "Cards owned: " + collectionSets.length
@@ -574,6 +613,9 @@ function openPack() {
 }
 
 function revealCard(number: number) {
+    // The market moves for every revealed card.
+    updateMarket()
+
     let roll = randint(1, 100)
     let rarity = "COMMON"
 
@@ -616,8 +658,7 @@ function revealCard(number: number) {
     }
 
     let cardValue = getBaseValue(rarity)
-
-    addCardToCollection(rarity, cardValue)
+    let openingValue = getOpeningSaleValue(rarity, cardValue)
 
     scene.setBackgroundColor(1)
 
@@ -646,9 +687,24 @@ function revealCard(number: number) {
     game.showLongText(
         "CARD " + number + " / 5\n\n" +
         rarity +
-        "\n\nBASE VALUE $" + cardValue,
+        "\n\nOPEN VALUE $" + openingValue,
         DialogLayout.Center
     )
+
+    // This quote is preserved from the instant the card was opened.
+    // Keeping the card sends it into the live marketplace afterward.
+    let sellNow = game.ask(
+        "SELL NOW?",
+        shortRarity(rarity) + " FOR $" + openingValue
+    )
+
+    if (sellNow) {
+        money += openingValue
+        game.splash("SOLD FROM PACK", "+$" + openingValue)
+    } else {
+        addCardToCollection(rarity, cardValue, openingValue)
+        game.splash("CARD KEPT", "Added to collection")
+    }
 }
 
 function getBaseValue(rarity: string): number {

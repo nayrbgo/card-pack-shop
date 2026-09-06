@@ -1,12 +1,58 @@
-# MakeCode
-built
-node_modules
-yotta_modules
-yotta_targets
-pxt_modules
-.pxt
-_site
+# MakeCode / build output
+built/
+node_modules/
+yotta_modules/
+yotta_targets/
+pxt_modules/
+.pxt/
+_site/
+
 *.db
 *.tgz
 .header.json
 .simstate.json
+
+# MakeCode editor history
+_history/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+.envrc
+.direnv/
+*.secret
+*.secrets
+secrets/
+credentials/
+
+# Credentials / private keys / certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_ed25519
+.npmrc
+.netrc
+.pypirc
+
+# Local databases / state / logs
+*.sqlite
+*.sqlite3
+*.log
+
+# Generated MakeCode output
+*.uf2
+*.hex
+
+# OS / editor-local files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.code-workspace
+.idea/
+.vscode/*.local.json

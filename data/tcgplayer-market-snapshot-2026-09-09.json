@@ -1,0 +1,67 @@
+{
+  "retrieved_on": "2026-09-09",
+  "source": "TCGplayer public indexed market-price pages",
+  "notes": "Whole-dollar game values are nearest-dollar rounding of the cited TCGplayer Market Price. This is a point-in-time snapshot, not a live feed. Some source pages were indexed within the prior week. Values under $0.50 round to $0.",
+  "sets": {
+    "ASCENDED HEROES": [
+      {"name":"Pikachu ex","number":"276/217","rarity":"SPECIAL ILLUSTRATION RARE","market_price":992.92,"game_value":993},
+      {"name":"Pikachu ex","number":"277/217","rarity":"SPECIAL ILLUSTRATION RARE","market_price":326.23,"game_value":326},
+      {"name":"Team Rocket's Mewtwo ex","number":"281/217","rarity":"SPECIAL ILLUSTRATION RARE","market_price":294.89,"game_value":295},
+      {"name":"Mega Feraligatr ex","number":"274/217","rarity":"SPECIAL ILLUSTRATION RARE","market_price":126.52,"game_value":127},
+      {"name":"Mega Meganium ex","number":"272/217","rarity":"SPECIAL ILLUSTRATION RARE","market_price":79.50,"game_value":80},
+      {"name":"Mega Emboar ex","number":"273/217","rarity":"SPECIAL ILLUSTRATION RARE","market_price":50.24,"game_value":50},
+      {"name":"Mega Eelektross ex","number":"278/217","rarity":"SPECIAL ILLUSTRATION RARE","market_price":38.31,"game_value":38},
+      {"name":"Mega Dragonite ex","number":"271/217","rarity":"MEGA ATTACK RARE","market_price":40.31,"game_value":40},
+      {"name":"Mega Gengar ex","number":"269/217","rarity":"MEGA ATTACK RARE","market_price":55.34,"game_value":55},
+      {"name":"Ultra Ball","number":"264/217","rarity":"ULTRA RARE","market_price":6.36,"game_value":6},
+      {"name":"Iono's Wattrel","number":"231/217","rarity":"ILLUSTRATION RARE","market_price":7.83,"game_value":8},
+      {"name":"Carbink","number":"242/217","rarity":"ILLUSTRATION RARE","market_price":6.23,"game_value":6},
+      {"name":"Hitmontop","number":"240/217","rarity":"ILLUSTRATION RARE","market_price":5.57,"game_value":6},
+      {"name":"Drakloak","number":"248/217","rarity":"ILLUSTRATION RARE","market_price":5.39,"game_value":5},
+      {"name":"Pikachu ex","number":"057/217","rarity":"DOUBLE RARE","market_price":4.07,"game_value":4},
+      {"name":"Mega Dragonite ex","number":"152/217","rarity":"DOUBLE RARE","market_price":4.89,"game_value":5}
+    ],
+    "CHAOS RISING": [
+      {"name":"Mega Greninja ex","number":"116/086","rarity":"SPECIAL ILLUSTRATION RARE","market_price":176.66,"game_value":177},
+      {"name":"Cinccino ex","number":"119/086","rarity":"SPECIAL ILLUSTRATION RARE","market_price":52.84,"game_value":53},
+      {"name":"Mega Dragalge ex","number":"118/086","rarity":"SPECIAL ILLUSTRATION RARE","market_price":34.61,"game_value":35},
+      {"name":"Mega Floette ex","number":"117/086","rarity":"SPECIAL ILLUSTRATION RARE","market_price":26.57,"game_value":27},
+      {"name":"AZ's Tranquility","number":"120/086","rarity":"SPECIAL ILLUSTRATION RARE","market_price":23.56,"game_value":24},
+      {"name":"Roxie's Performance","number":"121/086","rarity":"SPECIAL ILLUSTRATION RARE","market_price":20.21,"game_value":20},
+      {"name":"Froakie","number":"088/086","rarity":"ILLUSTRATION RARE","market_price":6.27,"game_value":6},
+      {"name":"Xerneas","number":"091/086","rarity":"ILLUSTRATION RARE","market_price":6.16,"game_value":6},
+      {"name":"Chespin","number":"087/086","rarity":"ILLUSTRATION RARE","market_price":3.59,"game_value":4},
+      {"name":"Special Red Card","number":"113/086","rarity":"ULTRA RARE","market_price":3.21,"game_value":3},
+      {"name":"Mega Greninja ex","number":"022/086","rarity":"DOUBLE RARE","market_price":0.97,"game_value":1}
+    ],
+    "PERFECT ORDER": [
+      {"name":"Mega Zygarde ex","number":"124/088","rarity":"MEGA HYPER RARE","market_price":130.60,"game_value":131},
+      {"name":"Meowth ex","number":"121/088","rarity":"SPECIAL ILLUSTRATION RARE","market_price":125.40,"game_value":125},
+      {"name":"Rosa's Encouragement","number":"123/088","rarity":"SPECIAL ILLUSTRATION RARE","market_price":50.27,"game_value":50},
+      {"name":"Mega Clefable ex","number":"119/088","rarity":"SPECIAL ILLUSTRATION RARE","market_price":50.06,"game_value":50},
+      {"name":"Mega Starmie ex","number":"118/088","rarity":"SPECIAL ILLUSTRATION RARE","market_price":42.49,"game_value":42},
+      {"name":"Jacinthe","number":"122/088","rarity":"SPECIAL ILLUSTRATION RARE","market_price":25.80,"game_value":26},
+      {"name":"Clefairy","number":"094/088","rarity":"ILLUSTRATION RARE","market_price":17.85,"game_value":18},
+      {"name":"Dedenne","number":"093/088","rarity":"ILLUSTRATION RARE","market_price":6.06,"game_value":6},
+      {"name":"Rowlet","number":"090/088","rarity":"ILLUSTRATION RARE","market_price":5.36,"game_value":5},
+      {"name":"Espurr","number":"095/088","rarity":"ILLUSTRATION RARE","market_price":4.35,"game_value":4},
+      {"name":"Doublade","number":"098/088","rarity":"ILLUSTRATION RARE","market_price":2.09,"game_value":2},
+      {"name":"Meowth ex","number":"062/088","rarity":"DOUBLE RARE","market_price":2.53,"game_value":3}
+    ],
+    "PITCH BLACK": [
+      {"name":"Mega Darkrai ex","number":"116/084","rarity":"SPECIAL ILLUSTRATION RARE","market_price":199.09,"game_value":199},
+      {"name":"Mega Darkrai ex","number":"120/084","rarity":"MEGA HYPER RARE","market_price":160.26,"game_value":160},
+      {"name":"Morpeko ex","number":"117/084","rarity":"SPECIAL ILLUSTRATION RARE","market_price":83.89,"game_value":84},
+      {"name":"Mega Zeraora ex","number":"114/084","rarity":"SPECIAL ILLUSTRATION RARE","market_price":59.08,"game_value":59},
+      {"name":"Mega Chandelure ex","number":"115/084","rarity":"SPECIAL ILLUSTRATION RARE","market_price":42.56,"game_value":43},
+      {"name":"Mega Darkrai ex","number":"101/084","rarity":"ULTRA RARE","market_price":9.40,"game_value":9},
+      {"name":"Mega Chandelure ex","number":"099/084","rarity":"ULTRA RARE","market_price":8.89,"game_value":9},
+      {"name":"Mega Excadrill ex","number":"103/084","rarity":"ULTRA RARE","market_price":7.39,"game_value":7},
+      {"name":"Slowbro","number":"090/084","rarity":"ILLUSTRATION RARE","market_price":8.46,"game_value":8},
+      {"name":"Goldeen","number":"087/084","rarity":"ILLUSTRATION RARE","market_price":7.71,"game_value":8},
+      {"name":"Primarina","number":"088/084","rarity":"ILLUSTRATION RARE","market_price":3.55,"game_value":4},
+      {"name":"Fomantis","number":"085/084","rarity":"ILLUSTRATION RARE","market_price":2.88,"game_value":3},
+      {"name":"Mega Darkrai ex","number":"048/084","rarity":"DOUBLE RARE","market_price":0.70,"game_value":1}
+    ]
+  }
+}

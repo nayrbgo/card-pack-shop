@@ -5,7 +5,13 @@
         "device": "*"
     },
     "files": [
-        "main.ts"
+        "main.ts",
+        "ui.ts",
+        "collection.ts",
+        "market.ts",
+        "cards.ts",
+        "portraits.ts",
+        "pack.ts"
     ],
     "testFiles": [
         "test.ts"

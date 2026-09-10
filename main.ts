@@ -31,7 +31,7 @@ let mhrMarket = 100
 
 scene.setBackgroundColor(9)
 
-game.splash("CARD PACK SHOP", "DRAFT 1.5")
+game.splash("CARD PACK SHOP", "DRAFT 1.6")
 
 updateSet()
 updateMarket()
@@ -99,53 +99,38 @@ function drawHome() {
     screen.print("< > CHANGE SET", 10, 115, 1, image.font5)
 }
 
-// Every player move shakes the market before the move happens.
-function marketMove() {
-    updateMarket()
-}
-
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (busy) {
+    if (busy || screenMode != 0) {
         return
     }
 
-    marketMove()
+    setNumber -= 1
 
-    if (screenMode == 0) {
-        setNumber -= 1
-
-        if (setNumber < 0) {
-            setNumber = 3
-        }
-
-        updateSet()
+    if (setNumber < 0) {
+        setNumber = 3
     }
+
+    updateSet()
 })
 
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (busy) {
+    if (busy || screenMode != 0) {
         return
     }
 
-    marketMove()
+    setNumber += 1
 
-    if (screenMode == 0) {
-        setNumber += 1
-
-        if (setNumber > 3) {
-            setNumber = 0
-        }
-
-        updateSet()
+    if (setNumber > 3) {
+        setNumber = 0
     }
+
+    updateSet()
 })
 
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (busy) {
         return
     }
-
-    marketMove()
 
     if (screenMode == 1 && collectionSets.length > 0) {
         selectedCard -= 1
@@ -161,8 +146,6 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         return
     }
 
-    marketMove()
-
     if (screenMode == 1 && collectionSets.length > 0) {
         selectedCard += 1
 
@@ -176,8 +159,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (busy) {
         return
     }
-
-    marketMove()
 
     if (screenMode == 1) {
         sellSelectedCard()
@@ -205,8 +186,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         return
     }
 
-    marketMove()
-
     if (screenMode == 0) {
         if (collectionSets.length > 0) {
             selectedCard = collectionSets.length - 1
@@ -224,8 +203,6 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (busy) {
         return
     }
-
-    marketMove()
 
     if (screenMode == 2) {
         showHome()
@@ -365,7 +342,6 @@ function sellSelectedCard() {
     let soldRarity = collectionRarities[selectedCard]
     let saleValue = getSaleValue(selectedCard)
 
-    // Lock this quote while the player confirms.
     busy = true
     let confirmed = game.ask(
         "SELL " + shortRarity(soldRarity) + "?",
@@ -604,18 +580,18 @@ function openPack() {
     revealCard(4)
     revealCard(5)
 
+    // One market change per pack, after all five opening offers.
+    updateMarket()
+
     game.splash(
         "PACK COMPLETE!",
-        "Cards owned: " + collectionSets.length
+        "Market prices moved!"
     )
 
     showHome()
 }
 
 function revealCard(number: number) {
-    // The market moves for every revealed card.
-    updateMarket()
-
     let roll = randint(1, 100)
     let rarity = "COMMON"
 
@@ -691,8 +667,6 @@ function revealCard(number: number) {
         DialogLayout.Center
     )
 
-    // This quote is preserved from the instant the card was opened.
-    // Keeping the card sends it into the live marketplace afterward.
     let sellNow = game.ask(
         "SELL NOW?",
         shortRarity(rarity) + " FOR $" + openingValue

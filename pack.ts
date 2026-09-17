@@ -61,6 +61,14 @@ function showCardReveal(number: number, characterName: string, rarity: string, o
     screen.drawLine(8, 103, 151, 103, 7)
     screen.print("PRESS A", 56, 111, 7, image.font5)
 
+    // Ignore any A press still being held from the previous splash/dialog.
+    // The reveal screen must remain visible until the player makes a fresh press.
+    while (controller.A.isPressed()) {
+        pause(20)
+    }
+
+    pause(100)
+
     while (!controller.A.isPressed()) {
         pause(20)
     }

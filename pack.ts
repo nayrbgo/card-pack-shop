@@ -38,56 +38,8 @@ function crinkle(pack: Sprite) {
     pack.x = 80
 }
 
-function showCardReveal(number: number, characterName: string, rarity: string, openingValue: number) {
-    // screenMode 3 means pack/reveal mode. main.ts onPaint deliberately
-    // does not draw home/collection/market while this screen is active.
-    screenMode = 3
-
-    screen.fill(1)
-    screen.print("CARD " + number + " / 5", 8, 8, 7, image.font8)
-    screen.drawLine(8, 22, 151, 22, 7)
-
-    let displayName = characterName
-    if (displayName.length > 21) {
-        displayName = displayName.substr(0, 21)
-    }
-
-    screen.print(displayName, 8, 34, 7, image.font5)
-    screen.print(shortRarity(rarity), 8, 47, 7, image.font5)
-
-    screen.print("OPEN VALUE", 8, 68, 7, image.font5)
-    screen.print("$" + openingValue, 8, 80, 7, image.font8)
-
-    let portrait = getCharacterPortrait(setNumber, rarity)
-    screen.drawTransparentImage(portrait, 126, 54)
-
-    screen.drawLine(8, 103, 151, 103, 7)
-    screen.print("PRESS A", 56, 111, 7, image.font5)
-
-    // Ignore any A press still being held from the previous splash/dialog.
-    while (controller.A.isPressed()) {
-        pause(20)
-    }
-
-    pause(120)
-
-    // Wait for a fresh A press so the reveal remains visible.
-    while (!controller.A.isPressed()) {
-        pause(20)
-    }
-
-    while (controller.A.isPressed()) {
-        pause(20)
-    }
-}
-
 function openPack() {
     busy = true
-
-    // Stop main.ts onPaint from continuously repainting the home screen
-    // over the custom pack/reveal screens.
-    screenMode = 3
-
     scene.setBackgroundColor(1)
     game.splash(setName, "OPENING PACK!")
 
@@ -183,7 +135,13 @@ function revealCard(number: number) {
         music.playTone(988, 200)
     }
 
-    showCardReveal(number, characterName, rarity, openingValue)
+    game.showLongText(
+        "CARD " + number + " / 5\n\n" +
+        characterName + "\n" +
+        rarity + "\n\n" +
+        "OPEN VALUE $" + openingValue,
+        DialogLayout.Center
+    )
 
     let sellNow = game.ask(
         "SELL NOW?",

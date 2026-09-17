@@ -38,6 +38,38 @@ function crinkle(pack: Sprite) {
     pack.x = 80
 }
 
+function showCardReveal(number: number, characterName: string, rarity: string, openingValue: number) {
+    screen.fill(1)
+
+    screen.print("CARD " + number + " / 5", 8, 8, 7, image.font8)
+    screen.drawLine(8, 22, 151, 22, 7)
+
+    let displayName = characterName
+    if (displayName.length > 21) {
+        displayName = displayName.substr(0, 21)
+    }
+
+    screen.print(displayName, 8, 34, 7, image.font5)
+    screen.print(shortRarity(rarity), 8, 47, 7, image.font5)
+
+    screen.print("OPEN VALUE", 8, 68, 7, image.font5)
+    screen.print("$" + openingValue, 8, 80, 7, image.font8)
+
+    let portrait = getCharacterPortrait(setNumber, rarity)
+    screen.drawTransparentImage(portrait, 126, 54)
+
+    screen.drawLine(8, 103, 151, 103, 7)
+    screen.print("PRESS A", 56, 111, 7, image.font5)
+
+    while (!controller.A.isPressed()) {
+        pause(20)
+    }
+
+    while (controller.A.isPressed()) {
+        pause(20)
+    }
+}
+
 function openPack() {
     busy = true
     scene.setBackgroundColor(1)
@@ -135,13 +167,7 @@ function revealCard(number: number) {
         music.playTone(988, 200)
     }
 
-    game.showLongText(
-        "CARD " + number + " / 5\n\n" +
-        characterName + "\n" +
-        rarity + "\n\n" +
-        "OPEN VALUE $" + openingValue,
-        DialogLayout.Center
-    )
+    showCardReveal(number, characterName, rarity, openingValue)
 
     let sellNow = game.ask(
         "SELL NOW?",

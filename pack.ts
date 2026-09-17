@@ -135,11 +135,12 @@ function revealCard(number: number) {
         music.playTone(988, 200)
     }
 
+    // Keep the proven dialog flow, but use only three compact lines
+    // so MakeCode's centered dialog does not stack text on itself.
     game.showLongText(
-        "CARD " + number + " / 5\n\n" +
-        characterName + "\n" +
-        rarity + "\n\n" +
-        "OPEN VALUE $" + openingValue,
+        "CARD " + number + "/5\n" +
+        shortCharacter(characterName) + "\n" +
+        shortRarity(rarity) + "   $" + openingValue,
         DialogLayout.Center
     )
 

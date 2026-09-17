@@ -70,6 +70,15 @@ function openPack() {
     // Prices move exactly once after the whole pack is finished.
     updateMarket()
     game.splash("PACK COMPLETE!", "Market prices moved!")
+
+    // Keep the game busy until the button used to dismiss the final splash
+    // has been released. Otherwise that same A press can fall through to the
+    // home-screen handler and immediately buy/open another pack.
+    while (controller.A.isPressed() || controller.B.isPressed()) {
+        pause(20)
+    }
+    pause(100)
+
     showHome()
 }
 

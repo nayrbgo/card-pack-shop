@@ -39,8 +39,11 @@ function crinkle(pack: Sprite) {
 }
 
 function showCardReveal(number: number, characterName: string, rarity: string, openingValue: number) {
-    screen.fill(1)
+    // screenMode 3 means pack/reveal mode. main.ts onPaint deliberately
+    // does not draw home/collection/market while this screen is active.
+    screenMode = 3
 
+    screen.fill(1)
     screen.print("CARD " + number + " / 5", 8, 8, 7, image.font8)
     screen.drawLine(8, 22, 151, 22, 7)
 
@@ -62,13 +65,13 @@ function showCardReveal(number: number, characterName: string, rarity: string, o
     screen.print("PRESS A", 56, 111, 7, image.font5)
 
     // Ignore any A press still being held from the previous splash/dialog.
-    // The reveal screen must remain visible until the player makes a fresh press.
     while (controller.A.isPressed()) {
         pause(20)
     }
 
-    pause(100)
+    pause(120)
 
+    // Wait for a fresh A press so the reveal remains visible.
     while (!controller.A.isPressed()) {
         pause(20)
     }
@@ -80,6 +83,11 @@ function showCardReveal(number: number, characterName: string, rarity: string, o
 
 function openPack() {
     busy = true
+
+    // Stop main.ts onPaint from continuously repainting the home screen
+    // over the custom pack/reveal screens.
+    screenMode = 3
+
     scene.setBackgroundColor(1)
     game.splash(setName, "OPENING PACK!")
 
